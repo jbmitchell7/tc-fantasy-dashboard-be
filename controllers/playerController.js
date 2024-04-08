@@ -32,14 +32,14 @@ router.get('/:sport/:id', async (req, res) => {
 });
 
 // Get list of players
-router.get('/:sport', async (req, res) => {
+router.post('/:sport', async (req, res) => {
   try {
     const model = getModel(req);
     const players = await model.find({player_id: { $in : req.body.players}});
     if (!players?.length) {
       return res.status(404).json({ error: 'Players not found' });
     }
-    res.json(player);
+    res.json(players);
   } catch (error) {
     res.status(500).json({ error: 'Internal server error' });
   }
